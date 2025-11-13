@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Orders - Asset Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Asset Management System</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/assets.html">Assets</a></li>
+                <li><a href="/workorders.html" class="active">Work Orders</a></li>
+                <li><a href="/create-workorder.html">Create Work Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Work Orders</h2>
+            <div>
+                <a href="/create-workorder.html" class="btn btn-success">🎤 Create with Voice</a>
+                <button class="btn btn-primary" onclick="showCreateModal()">+ Create Work Order</button>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search work orders by asset ID or comment..." onkeyup="filterWorkOrders()">
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Work Order ID</th>
+                        <th>Asset ID</th>
+                        <th>Comment</th>
+                        <th>Labour Hours</th>
+                        <th>Transcription</th>
+                        <th>Confidence</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="workOrdersTableBody">
+                    <tr>
+                        <td colspan="7" class="loading">Loading work orders...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Create/Edit Work Order Modal -->
+    <div id="workOrderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Create Work Order</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="workOrderForm" onsubmit="saveWorkOrder(event)">
+                <input type="hidden" id="workOrderGuid">
+                <div class="form-group">
+                    <label for="assetId">Asset ID</label>
+                    <input type="text" id="assetId" placeholder="e.g., TX-482">
+                    <small>Leave empty if not associated with an asset</small>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <textarea id="comment" rows="4" placeholder="Describe the work performed..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="labourHours">Labour Hours</label>
+                    <input type="number" id="labourHours" step="0.5" min="0" placeholder="e.g., 2.5">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Work Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Work Order Details</h3>
+                <span class="close" onclick="closeDetailsModal()">&times;</span>
+            </div>
+            <div id="workOrderDetails" class="details-container">
+                <!-- Details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeDetailsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Asset Management System</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/workorders.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Asset Management System</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="active">Dashboard</a></li>
+                <li><a href="/assets.html">Assets</a></li>
+                <li><a href="/workorders.html">Work Orders</a></li>
+                <li><a href="/create-workorder.html">Create Work Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Welcome to Asset Management System</h2>
+            <p>Manage your assets, work orders, and use voice transcription to create work orders efficiently.</p>
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-content">
+                    <h3 id="totalAssets">-</h3>
+                    <p>Total Assets</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔧</div>
+                <div class="stat-content">
+                    <h3 id="totalWorkOrders">-</h3>
+                    <p>Total Work Orders</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-content">
+                    <h3 id="totalHours">-</h3>
+                    <p>Total Labour Hours</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎤</div>
+                <div class="stat-content">
+                    <h3 id="withTranscription">-</h3>
+                    <p>With Transcription</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🎯 Asset Management</h3>
+                <p>Create, view, update, and manage all your assets in one place. Track asset types, IDs, and status.</p>
+                <a href="/assets.html" class="btn btn-primary">Manage Assets</a>
+            </div>
+            <div class="feature-card">
+                <h3>📝 Work Orders</h3>
+                <p>Organize and track work orders with detailed information about assets, comments, and labour hours.</p>
+                <a href="/workorders.html" class="btn btn-primary">View Work Orders</a>
+            </div>
+            <div class="feature-card">
+                <h3>🎤 Voice to Work Order</h3>
+                <p>Use voice dictation to create work orders. Automatically extract asset IDs, hours, and comments from speech.</p>
+                <a href="/create-workorder.html" class="btn btn-primary">Create with Voice</a>
+            </div>
+        </div>
+
+        <div class="recent-section">
+            <h2>Recent Work Orders</h2>
+            <div id="recentWorkOrders">
+                <p class="loading">Loading recent work orders...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Asset Management System. Powered by Speech-to-Work-Order Technology.</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

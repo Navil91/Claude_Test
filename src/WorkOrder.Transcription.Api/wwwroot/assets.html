@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assets - Asset Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Asset Management System</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/assets.html" class="active">Assets</a></li>
+                <li><a href="/workorders.html">Work Orders</a></li>
+                <li><a href="/create-workorder.html">Create Work Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Asset Management</h2>
+            <button class="btn btn-primary" onclick="showCreateModal()">+ Create Asset</button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search assets by ID, name, or type..." onkeyup="filterAssets()">
+            <label class="checkbox-label">
+                <input type="checkbox" id="activeOnlyCheckbox" checked onchange="loadAssets()">
+                Show Active Only
+            </label>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="assetsTableBody">
+                    <tr>
+                        <td colspan="5" class="loading">Loading assets...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Create/Edit Asset Modal -->
+    <div id="assetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Create Asset</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="assetForm" onsubmit="saveAsset(event)">
+                <input type="hidden" id="assetGuid">
+                <div class="form-group">
+                    <label for="assetId">Asset ID *</label>
+                    <input type="text" id="assetId" required placeholder="e.g., TX-482, PUMP-17">
+                </div>
+                <div class="form-group">
+                    <label for="assetName">Asset Name</label>
+                    <input type="text" id="assetName" placeholder="e.g., Transformer 482">
+                </div>
+                <div class="form-group">
+                    <label for="assetType">Asset Type</label>
+                    <input type="text" id="assetType" placeholder="e.g., Electrical, Hydraulic">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="isActive" checked>
+                        Active
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Asset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Asset Management System</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/assets.js"></script>
+</body>
+</html>

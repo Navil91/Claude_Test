@@ -40,6 +40,46 @@ public class AssetRepository : IAssetRepository
             .AnyAsync(a => a.IsActive && a.AssetId.ToUpper() == normalized, cancellationToken);
     }
 
+    public async Task<List<Asset>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await _context.Assets.ToListAsync(cancellationToken);
+    }
+
+    public async Task<Asset?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _context.Assets
+            .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+    }
+
+    public async Task<Asset?> GetByAssetIdAsync(string assetId, CancellationToken cancellationToken = default)
+    {
+        var normalized = Normalize(assetId);
+        return await _context.Assets
+            .FirstOrDefaultAsync(a => a.AssetId.ToUpper() == normalized, cancellationToken);
+    }
+
+    public async Task AddAsync(Asset asset, CancellationToken cancellationToken = default)
+    {
+        await _context.Assets.AddAsync(asset, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task UpdateAsync(Asset asset, CancellationToken cancellationToken = default)
+    {
+        _context.Assets.Update(asset);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var asset = await GetByIdAsync(id, cancellationToken);
+        if (asset != null)
+        {
+            _context.Assets.Remove(asset);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+    }
+
     private static string Normalize(string id)
     {
         return id.Replace(" ", "").Replace("–", "-").ToUpperInvariant();

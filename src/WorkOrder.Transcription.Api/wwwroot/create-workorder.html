@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Work Order with Voice - Asset Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Asset Management System</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/assets.html">Assets</a></li>
+                <li><a href="/workorders.html">Work Orders</a></li>
+                <li><a href="/create-workorder.html" class="active">Create Work Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>🎤 Create Work Order with Voice</h2>
+        </div>
+
+        <div class="voice-container">
+            <div class="voice-card">
+                <h3>Step 1: Record Your Voice</h3>
+                <p>Click the microphone button and speak clearly. Mention the asset ID, work performed, and hours spent.</p>
+
+                <div class="voice-controls">
+                    <div class="language-selector">
+                        <label for="locale">Language:</label>
+                        <select id="locale">
+                            <option value="en-GB" selected>English (UK)</option>
+                            <option value="sv-SE">Swedish</option>
+                            <option value="fr-FR">French</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="de-DE">German</option>
+                        </select>
+                    </div>
+
+                    <div class="recording-area">
+                        <button id="recordBtn" class="btn-record" onclick="toggleRecording()">
+                            <span class="mic-icon">🎤</span>
+                            <span id="recordBtnText">Start Recording</span>
+                        </button>
+                        <div id="recordingStatus" class="recording-status"></div>
+                        <div id="audioControls" class="audio-controls" style="display:none;">
+                            <audio id="audioPlayback" controls></audio>
+                            <button class="btn btn-secondary" onclick="resetRecording()">🔄 Re-record</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="voice-card">
+                <h3>Step 2: Transcribe & Extract</h3>
+                <p>Upload your audio to automatically extract asset information, hours, and comments.</p>
+
+                <div class="transcription-controls">
+                    <div class="file-upload">
+                        <label for="audioFile" class="file-label">
+                            📁 Or Upload Audio File
+                            <input type="file" id="audioFile" accept="audio/*" onchange="handleFileUpload(event)">
+                        </label>
+                    </div>
+
+                    <button id="transcribeBtn" class="btn btn-primary" onclick="transcribeAudio()" disabled>
+                        Transcribe Audio
+                    </button>
+
+                    <div id="transcriptionStatus" class="transcription-status"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="resultSection" class="result-section" style="display:none;">
+            <h3>Transcription Results</h3>
+
+            <div class="result-card">
+                <div class="result-item">
+                    <strong>Transcribed Text:</strong>
+                    <p id="transcriptText" class="transcript-text"></p>
+                </div>
+
+                <div class="extracted-fields">
+                    <div class="field-group">
+                        <label>Asset ID:</label>
+                        <span id="extractedAsset" class="extracted-value">-</span>
+                    </div>
+                    <div class="field-group">
+                        <label>Labour Hours:</label>
+                        <span id="extractedHours" class="extracted-value">-</span>
+                    </div>
+                    <div class="field-group">
+                        <label>Confidence:</label>
+                        <span id="extractedConfidence" class="extracted-value confidence-badge">-</span>
+                    </div>
+                </div>
+
+                <div class="result-item">
+                    <strong>Comment:</strong>
+                    <p id="extractedComment"></p>
+                </div>
+
+                <div class="metadata-details">
+                    <details>
+                        <summary>Metadata & Details</summary>
+                        <div id="metadataContent"></div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-success" onclick="saveExtractedWorkOrder()">✓ Save Work Order</button>
+                <button class="btn btn-secondary" onclick="resetForm()">🔄 Start Over</button>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h3>💡 Tips for Best Results</h3>
+            <ul>
+                <li><strong>Speak clearly</strong> and at a moderate pace</li>
+                <li><strong>Mention the asset ID</strong> clearly (e.g., "T X dash four eight two" or "PUMP seventeen")</li>
+                <li><strong>Include hours</strong> if applicable (e.g., "took two hours" or "1.5 hours")</li>
+                <li><strong>Describe the work</strong> performed in detail</li>
+                <li>Examples:
+                    <ul>
+                        <li>"Fixed pump T X dash four eight two, replaced seals, took two hours"</li>
+                        <li>"Inspected transformer PUMP seventeen, all systems normal, one hour"</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Asset Management System</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/voice-recorder.js"></script>
+</body>
+</html>
